@@ -1,0 +1,22 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+   font-family: "Outfit", sans-serif;
+}
+.neon-text {
+  color: #3b82f6;
+  text-shadow: 0 0 5px #3b82f6, 0 0 10px #3b82f6;
+}
+html, body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+body {
+  overflow-y: scroll;
+}
+.content-wrapper {
+  padding-top: 80px; /* adjust to your navbar height */
+}
