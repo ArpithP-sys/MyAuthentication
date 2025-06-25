@@ -26,7 +26,7 @@ if(process.env.NODE_ENV==="production"){
 
 
 // Api endpoint
-app.get('/', (req, res) => res.send("API Working"));
+app.get('/:id', (req, res) => res.send("API Working"));
 app.use('/api/auth', authrouter);
 app.use('/api/user',userRouter)
 
