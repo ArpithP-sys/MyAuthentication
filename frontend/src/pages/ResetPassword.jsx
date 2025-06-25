@@ -3,7 +3,7 @@ import { MailIcon, LockIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { AppContent } from '../context/appcontext';
+import { AppContent } from '../context/AppContext';
 import Navbar from '../components/Navbar';
 
 const ResetPassword = () => {

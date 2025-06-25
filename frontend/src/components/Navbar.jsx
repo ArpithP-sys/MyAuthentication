@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Globe, LogInIcon, LogOut, MailCheck } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { AppContent } from '../context/appcontext';
+import { AppContent } from '../context/AppContext';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 

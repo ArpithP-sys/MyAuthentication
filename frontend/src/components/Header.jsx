@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Bot, ArrowRight } from "lucide-react";
-import { AppContent } from "../context/appcontext";
+import { AppContent } from "../context/AppContext";
 
 const Header = () => {
   const { userData, loading, isLoggedin } = useContext(AppContent);
