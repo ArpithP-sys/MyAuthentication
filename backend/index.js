@@ -27,17 +27,17 @@ app.use(cors({
 }));
 
 // ✅ API routes
-app.get('/', (req, res) => res.send("API Working"));
+// app.get('/', (req, res) => res.send("API Working"));
 app.use('/api/auth', authrouter);
 app.use('/api/user', userRouter);
 
 // ✅ Serve frontend static files in production
-if (process.env.NODE_ENV === "production") {
+
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
-}
+
 
 // ✅ Start server
 app.listen(PORT, () => {
