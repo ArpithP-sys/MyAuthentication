@@ -5,42 +5,64 @@ import userModel from '../models/usermodels.js';
 import transporter from '../config/nodemailer.js';
 
 // ------------------- REGISTER -------------------
+
+
 export const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+
+    // Log incoming data
+    console.log("📥 Registration request body:", req.body);
+
+    // Validate input
     if (!name || !email || !password) {
-      return res.status(400).json({ message: 'All fields are required' });
+      return res.status(400).json({ message: '❌ All fields are required' });
     }
 
+    // Check if user exists
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({ message: '❌ User already exists' });
     }
 
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new userModel({ name, email, password: hashedPassword });
+
+    // Save user
+    const newUser = new userModel({
+      name,
+      email,
+      password: hashedPassword
+    });
     await newUser.save();
 
-    // Send Welcome Email (no token)
+    // Prepare email
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
       to: email,
-      subject: 'Welcome to Our Service',
-      text: `Hello ${name},\n\nThank you for registering! Please login and verify your email to continue.`
+      subject: '👋 Welcome to Our Service',
+      text: `Hello ${name},\n\nThank you for registering! Please log in and verify your email to continue.\n\nRegards,\nTeam`
     };
 
     try {
       await transporter.sendMail(mailOptions);
-    } catch (err) {
-      console.log("Email send failed: ", err.message);
+      console.log(`📨 Welcome email sent to ${email}`);
+    } catch (emailError) {
+      console.error("❌ Failed to send welcome email:", emailError.message);
     }
 
-    return res.status(201).json({ success: true, message: 'Registered successfully. Please login.' });
+    // Final response
+    return res.status(201).json({
+      success: true,
+      message: '✅ Registered successfully. Please log in.'
+    });
+
   } catch (error) {
-    console.error('Registration error:', error.message);
+    console.error('❌ Registration Error:', error.message);
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 // ------------------- LOGIN -------------------
 export const login = async (req, res) => {
